@@ -3,260 +3,397 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard Pengurus | Ranah Rengkuh</title>
+<title>Dashboard Manajemen | Ranah Rengkuh</title>
 
 <style>
 * { box-sizing: border-box; }
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #eaf4ff;
-    color: #514875;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    background: #eaf3ff;
+    color: #3b2f66;
 }
 
-/* SIDEBAR */
+/* SIDEBAR FIGMA PENGURUS */
 .sidebar {
     position: fixed;
     inset: 0 auto 0 0;
     width: 220px;
     background: #ded7f4;
-    padding: 22px 14px;
+    padding: 24px 16px;
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
+    z-index: 10;
 }
 
 .brand {
-    text-align: center;
-    padding: 5px 8px 20px;
-    border-bottom: 1px solid #cfc4e8;
+    padding: 0 8px 8px;
+    text-align: left;
 }
 
 .brand img {
-    width: 155px;
-    height: 72px;
+    width: 140px;
+    max-height: 60px;
     object-fit: contain;
 }
 
-.brand small {
+.brand-label {
     display: block;
-    color: #7765a6;
-    font-weight: bold;
+    font-size: 9px;
+    font-weight: 800;
     letter-spacing: 1.5px;
-    font-size: 10px;
-    margin-top: 7px;
+    color: #55447a;
+    margin: 6px 0 16px;
+    text-transform: uppercase;
 }
 
-.menu-label {
-    font-size: 10px;
-    font-weight: bold;
-    color: #9689b5;
-    margin: 23px 10px 10px;
-    letter-spacing: 1px;
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 .menu a {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 12px;
-    margin-bottom: 5px;
-    border-radius: 9px;
-    color: #655987;
+    padding: 11px 14px;
+    border-radius: 10px;
+    color: #55447a;
     text-decoration: none;
-    font-size: 12px;
-    transition: .2s;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all .2s;
 }
 
 .menu a:hover,
 .menu a.active {
-    background: #69539f;
+    background: #5d4692;
     color: white;
 }
 
-.logout {
+.logout-box {
     margin-top: auto;
     padding-top: 20px;
 }
 
-.logout button {
+.logout-box button {
     width: 100%;
-    padding: 12px;
+    border: none;
     background: transparent;
-    border: 0;
-    color: #76638f;
+    color: #55447a;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    font-size: 13px;
+    font-weight: 600;
     cursor: pointer;
-    text-align: left;
-    font-weight: bold;
+    border-radius: 10px;
 }
 
-/* MAIN */
+.logout-box button:hover { background: rgba(93, 70, 146, 0.12); }
+
+/* MAIN CONTENT */
 .main {
     margin-left: 220px;
     min-height: 100vh;
 }
 
 .topbar {
-    height: 65px;
-    background: #79b8f3;
+    height: 58px;
+    background: #7bbcf5;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 28px;
-    color: white;
+    padding: 0 32px;
+    color: #2e2154;
+    font-size: 13px;
+    font-weight: 600;
 }
 
-.topbar strong {
-    font-size: 14px;
+.breadcrumb { color: #2b1d56; }
+.breadcrumb span { opacity: 0.7; }
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
 
-.profile {
-    background: rgba(255,255,255,.25);
-    padding: 10px 15px;
-    border-radius: 20px;
-    font-size: 12px;
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.user-avatar {
+    width: 30px;
+    height: 30px;
+    background: #ffffff;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 13px;
+    color: #5d4692;
 }
 
 .content {
-    padding: 24px 28px;
+    padding: 24px 32px 50px;
 }
 
-/* WELCOME BANNER */
-.banner {
-    min-height: 155px;
-    padding: 27px;
-    border-radius: 14px;
-    background: linear-gradient(110deg, #a6c9f7, #79b5ed);
-    position: relative;
+.page-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: #3b2a68;
+    margin: 0 0 16px;
+}
+
+/* BANNER MANDALA FIGMA */
+.hero-banner {
+    border-radius: 16px;
     overflow: hidden;
-    color: #55458a;
-    margin-bottom: 20px;
+    position: relative;
+    padding: 26px 32px;
+    background: linear-gradient(135deg, #cde3fa 0%, #a4d2fb 60%, #e2d2f7 100%);
+    box-shadow: 0 4px 18px rgba(90, 130, 200, 0.12);
+    margin-bottom: 22px;
 }
 
-.banner h1 {
-    margin: 0 0 10px;
-    font-size: 28px;
+.hero-banner h1 {
+    margin: 0 0 8px;
+    font-size: 26px;
+    font-weight: 800;
+    color: #3e2e71;
 }
 
-.banner p {
-    max-width: 460px;
-    line-height: 1.6;
-    font-size: 12px;
+.hero-banner p {
+    margin: 0;
+    font-size: 13px;
+    color: #55447a;
+    max-width: 520px;
+    line-height: 1.5;
 }
 
-.banner-art {
+.hero-banner-art {
     position: absolute;
-    right: 30px;
-    bottom: 12px;
-    font-size: 65px;
-    opacity: .8;
+    right: 28px;
+    bottom: 10px;
+    font-size: 55px;
+    opacity: 0.85;
 }
 
-/* STATISTICS */
-.stats {
+/* STATS 4 KOTAK FIGMA */
+.stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-bottom: 20px;
+    gap: 16px;
+    margin-bottom: 22px;
 }
 
-.stat {
-    padding: 17px;
-    border-radius: 12px;
-    min-height: 105px;
-    box-shadow: 0 3px 10px rgba(75,80,130,.08);
+.stat-box {
+    border-radius: 14px;
+    padding: 18px 20px;
+    box-shadow: 0 2px 10px rgba(60, 45, 110, 0.04);
 }
 
-.stat:nth-child(1) { background: #e5dcfa; }
-.stat:nth-child(2) { background: #cce6ff; }
-.stat:nth-child(3) { background: #fff0c8; }
-.stat:nth-child(4) { background: #d9f0e5; }
+.stat-box.one { background: #e8dffc; }
+.stat-box.two { background: #d7ecff; }
+.stat-box.three { background: #fff1d4; }
+.stat-box.four { background: #ede8f8; }
 
-.stat .label {
+.stat-label {
     font-size: 11px;
-    color: #70678d;
-    display: block;
-    margin-bottom: 12px;
+    font-weight: 600;
+    color: #6a5a8e;
+    margin-bottom: 8px;
 }
 
-.stat strong {
-    font-size: 25px;
-    color: #51447f;
+.stat-num {
+    font-size: 26px;
+    font-weight: 800;
+    color: #3b2a68;
+    margin-bottom: 4px;
 }
 
-/* CONTENT GRID */
-.section-title {
-    font-size: 15px;
-    margin: 22px 0 12px;
-    color: #62528e;
+.stat-sub {
+    font-size: 11px;
+    color: #7d6f9a;
 }
 
-.content-grid {
+/* 2 KOLOM GRID FIGMA */
+.dashboard-grid {
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 14px;
+    grid-template-columns: minmax(0, 1.8fr) minmax(320px, 1fr);
+    gap: 22px;
 }
 
 .card {
-    background: #fff;
-    border-radius: 12px;
-    padding: 17px;
-    box-shadow: 0 3px 12px rgba(75,80,130,.07);
+    background: #ffffff;
+    border: 1px solid #ebe4f7;
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 4px 18px rgba(60, 45, 110, 0.04);
+    margin-bottom: 22px;
 }
 
-.card h3 {
-    margin: 0 0 13px;
-    font-size: 13px;
-    color: #5c4b8c;
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
 }
 
-.empty {
-    padding: 20px 5px;
-    text-align: center;
+.card-header h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: #3b2a68;
+}
+
+.card-header a {
     font-size: 12px;
-    color: #9993ad;
-    line-height: 1.7;
-}
-
-.quick-actions {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-}
-
-.quick-actions a {
-    background: #f0ecfa;
-    border-radius: 9px;
-    padding: 13px 8px;
-    text-align: center;
-    color: #65558e;
+    font-weight: 600;
+    color: #5d4692;
     text-decoration: none;
+}
+
+/* TABLE PENDAFTARAN TERBARU FIGMA */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #f4f0fb;
+    color: #4b3d73;
+}
+
+tr:hover td {
+    background: #faf8fe;
+}
+
+.status-badge {
+    padding: 3px 8px;
+    border-radius: 12px;
     font-size: 11px;
+    font-weight: 600;
+    display: inline-block;
 }
 
-.quick-actions a:hover {
-    background: #e2d9f5;
+.status-terdaftar { background: #e2f7ec; color: #17834a; }
+.status-menunggu { background: #fff4d9; color: #925c04; }
+
+/* KARTU KEGIATAN AKAN DATANG KANAN FIGMA */
+.coming-kegiatan-box {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
 }
 
-@media(max-width: 950px) {
-    .stats { grid-template-columns: repeat(2, 1fr); }
+.coming-thumb {
+    width: 75px;
+    height: 75px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #3b2a68;
+    flex-shrink: 0;
 }
 
-@media(max-width: 650px) {
-    .sidebar {
-        position: relative;
-        width: 100%;
-        height: auto;
-    }
+.coming-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
-    .menu { display: grid; grid-template-columns: 1fr 1fr; }
-    .logout { margin-top: 10px; }
+.coming-info strong {
+    display: block;
+    font-size: 14px;
+    color: #3b2a68;
+    margin-bottom: 4px;
+}
+
+.coming-info small {
+    display: block;
+    font-size: 11px;
+    color: #7b6f98;
+    margin-bottom: 2px;
+}
+
+.coming-meta {
+    font-size: 11px;
+    color: #8b7fa8;
+    margin-bottom: 8px;
+}
+
+/* RINGKASAN PEMBAYARAN KIRI BAWAH FIGMA */
+.pembayaran-summary-grid {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.pembayaran-summary-grid strong {
+    font-size: 22px;
+    font-weight: 800;
+    color: #3b2a68;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.pembayaran-summary-grid span {
+    font-size: 12px;
+    font-weight: 600;
+    color: #55447a;
+}
+
+.pembayaran-progress-bg {
+    width: 100%;
+    height: 8px;
+    background: #ebe4f7;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.pembayaran-progress-fill {
+    height: 100%;
+    background: #5d4692;
+    border-radius: 10px;
+}
+
+/* INFORMASI PENTING KANAN BAWAH FIGMA */
+.info-penting-box {
+    background: #f1edfb;
+    border-radius: 14px;
+    padding: 18px 20px;
+    border: 1px solid #e3daf5;
+}
+
+.info-penting-box h4 {
+    margin: 0 0 8px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #4b367d;
+}
+
+.info-penting-box p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.55;
+    color: #6c5d8e;
+}
+
+@media(max-width: 900px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .dashboard-grid { grid-template-columns: 1fr; }
+    .sidebar { position: relative; width: 100%; }
     .main { margin-left: 0; }
-    .topbar { padding: 0 16px; }
-    .content { padding: 16px; }
-    .content-grid { grid-template-columns: 1fr; }
-    .banner-art { display: none; }
 }
 </style>
 </head>
@@ -266,32 +403,36 @@ body {
 <aside class="sidebar">
     <div class="brand">
         <img src="{{ asset('images/logo-ranah-rengkuh.png') }}" alt="Ranah Rengkuh">
-        <small>PANEL PENGURUS</small>
+        <span class="brand-label">MANAJEMEN · MANDALA</span>
     </div>
 
-    <div class="menu-label">MENU UTAMA</div>
-
     <nav class="menu">
-        <a href="{{ url('/dashboard/mandala') }}" class="active">⌂ Dashboard</a>
-        <a href="#">▦ Kelola Kegiatan</a>
-        <a href="#">◷ Agenda & Pengumuman</a>
-        <a href="#">♙ Data Volunteer</a>
-        <a href="#">▤ Data Pendaftaran</a>
-        <a href="#">▣ Verifikasi Pembayaran</a>
+        <a href="{{ route('pengurus.dashboard') }}" class="active">
+            <span>⌂</span> Dashboard
+        </a>
+        <a href="{{ route('pengurus.kegiatan.index') }}">
+            <span>📅</span> Kelola Kegiatan
+        </a>
+        <a href="{{ route('pengurus.volunteer.index') }}">
+            <span>👥</span> Kelola Volunteer
+        </a>
+        <a href="{{ route('pengurus.laporan.pendaftar') }}">
+            <span>📋</span> Laporan Pendaftar
+        </a>
+        <a href="{{ route('pengurus.rekap.pembayaran') }}">
+            <span>💳</span> Rekap Pembayaran
+        </a>
+        <a href="{{ route('pengurus.generate.rab.ai') }}">
+            <span>✨</span> Generate RAB dengan AI
+        </a>
     </nav>
 
-    <div class="menu-label">ADMINISTRASI KEUANGAN</div>
-
-    <nav class="menu">
-        <a href="#">▤ RAB & Anggaran</a>
-        <a href="#">▧ Jurnal Umum</a>
-        <a href="#">▥ Laporan Keuangan</a>
-    </nav>
-
-    <div class="logout">
-        <form method="POST" action="{{ url('/logout') }}">
+    <div class="logout-box">
+        <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <button type="submit">↪ Logout</button>
+            <button type="submit">
+                <span>↪</span> Log Out
+            </button>
         </form>
     </div>
 </aside>
@@ -299,82 +440,182 @@ body {
 <main class="main">
 
     <header class="topbar">
-        <strong>Dashboard</strong>
-        <div class="profile">♙ {{ $nama }}</div>
+        <div class="breadcrumb">
+            <span>Manajemen / </span> Dashboard Manajemen
+        </div>
+
+        <div class="topbar-right">
+            <span style="font-size: 16px;">🔔</span>
+            <div class="user-profile">
+                <span class="user-avatar">👤</span>
+                <span>{{ strtoupper($nama) }}</span>
+            </div>
+        </div>
     </header>
 
     <div class="content">
 
-        <section class="banner">
-            <h1>Halo, {{ $nama }}!</h1>
-            <p>
-                Selamat datang di Dashboard Pengurus Ranah Rengkuh.
-                Kelola kegiatan, pantau pendaftaran, dan berikan
-                pengalaman terbaik bagi Volunteer komunitas.
-            </p>
-            <div class="banner-art">☁️ 🕊️</div>
-        </section>
+        <h1 class="page-title">Dashboard Manajemen</h1>
 
-        <h2 class="section-title">Ringkasan Komunitas</h2>
+        <!-- HERO BANNER MANDALA FIGMA -->
+        <div class="hero-banner">
+            <h1>Halo, {{ $nama }}! 👋</h1>
+            <p>Selamat datang kembali. Kelola kegiatan, dukung volunteer, dan pantau kontribusi kebaikan dalam satu tempat.</p>
+            <div class="hero-banner-art">🎒 🧑🏻‍🤝‍🧑🏼</div>
+        </div>
 
-        <section class="stats">
-            <div class="stat">
-                <span class="label">Total Kegiatan</span>
-                <strong>0</strong>
+        <!-- STATS 4 KOTAK FIGMA -->
+        <div class="stats-grid">
+            <div class="stat-box one">
+                <div class="stat-label">Jumlah kegiatan</div>
+                <div class="stat-num">{{ $totalKegiatan }}</div>
+                <div class="stat-sub">Seluruh kegiatan terkelola</div>
             </div>
-            <div class="stat">
-                <span class="label">Total Volunteer</span>
-                <strong>0</strong>
-            </div>
-            <div class="stat">
-                <span class="label">Total Pendaftaran</span>
-                <strong>0</strong>
-            </div>
-            <div class="stat">
-                <span class="label">Pembayaran Lunas</span>
-                <strong>0</strong>
-            </div>
-        </section>
 
-        <section class="content-grid">
-            <div>
+            <div class="stat-box two">
+                <div class="stat-label">Jumlah volunteer</div>
+                <div class="stat-num">{{ $totalVolunteer }}</div>
+                <div class="stat-sub">Volunteer terdaftar</div>
+            </div>
+
+            <div class="stat-box three">
+                <div class="stat-label">Jumlah pendaftaran</div>
+                <div class="stat-num">{{ $totalPendaftaran }}</div>
+                <div class="stat-sub">Seluruh kegiatan</div>
+            </div>
+
+            <div class="stat-box four">
+                <div class="stat-label">Penerimaan pembayaran</div>
+                <div class="stat-num">Rp{{ number_format($sudahDiterima, 0, ',', '.') }}</div>
+                <div class="stat-sub">{{ $pembayaranBerhasilCount }} berhasil · {{ $pembayaranMenungguCount }} menunggu</div>
+            </div>
+        </div>
+
+        <!-- 2 KOLOM GRID FIGMA -->
+        <div class="dashboard-grid">
+
+            <!-- KOLOM KIRI FIGMA -->
+            <div class="left-col">
+
+                <!-- PENDAFTARAN TERBARU -->
                 <div class="card">
-                    <h3>Aktivitas Terbaru</h3>
-                    <div class="empty">
-                        Belum ada aktivitas terbaru.
-                        <br>Aktivitas komunitas akan ditampilkan di sini.
+                    <div class="card-header">
+                        <h3>Pendaftaran terbaru</h3>
+                        <a href="{{ route('pengurus.laporan.pendaftar') }}">Lihat Laporan →</a>
                     </div>
+
+                    @if($pendaftaranTerbaru->isEmpty())
+                        <div style="text-align: center; padding: 20px; color: #8a7fa5; font-size: 12px;">
+                            Belum ada pendaftaran volunteer yang masuk.
+                        </div>
+                    @else
+                        <table>
+                            <tbody>
+                                @foreach($pendaftaranTerbaru as $p)
+                                    @php
+                                        $status = $p->pembayaran->first()->Status ?? 'Menunggu';
+                                    @endphp
+                                    <tr>
+                                        <td><strong>{{ $p->volunteer->Nama ?? '-' }}</strong></td>
+                                        <td>{{ $p->kegiatan->Nama_Kegiatan ?? '-' }}</td>
+                                        <td style="text-align: right;">
+                                            @if($status === 'Lunas')
+                                                <span class="status-badge status-terdaftar">Terdaftar</span>
+                                            @else
+                                                <span class="status-badge status-menunggu">Menunggu pembayaran</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
                 </div>
 
-                <h2 class="section-title">Menu Pengelolaan</h2>
+                <!-- RINGKASAN PEMBAYARAN -->
                 <div class="card">
-                    <div class="quick-actions">
-                        <a href="#">＋ Tambah Kegiatan</a>
-                        <a href="#">▤ Data Pendaftaran</a>
-                        <a href="#">♙ Data Volunteer</a>
-                        <a href="#">▣ Pembayaran</a>
+                    <div class="card-header">
+                        <h3>Ringkasan pembayaran</h3>
                     </div>
+
+                    <div class="pembayaran-summary-grid">
+                        <div>
+                            <strong>Rp{{ number_format($sudahDiterima, 0, ',', '.') }}</strong>
+                            <span>Sudah diterima</span>
+                        </div>
+                        <div style="text-align: right;">
+                            <strong style="color: #695a8e;">Rp{{ number_format($menungguPembayaran, 0, ',', '.') }}</strong>
+                            <span>Menunggu pembayaran</span>
+                        </div>
+                    </div>
+
+                    @php
+                        $totalSemua = $sudahDiterima + $menungguPembayaran;
+                        $persenLunas = $totalSemua > 0 ? round(($sudahDiterima / $totalSemua) * 100) : 0;
+                    @endphp
+                    <div class="pembayaran-progress-bg">
+                        <div class="pembayaran-progress-fill" style="width: {{ $persenLunas }}%;"></div>
+                    </div>
+
+                    <a href="{{ route('pengurus.rekap.pembayaran') }}" style="font-size: 12px; font-weight: 600; color: #5d4692; text-decoration: none;">
+                        Lihat Rekap Pembayaran →
+                    </a>
                 </div>
+
             </div>
 
-            <div>
+            <!-- KOLOM KANAN FIGMA -->
+            <div class="right-col">
+
+                <!-- KEGIATAN AKAN DATANG -->
                 <div class="card">
-                    <h3>Pengumuman</h3>
-                    <div class="empty">
-                        Belum ada pengumuman.
-                        <br>Informasi agenda akan muncul di sini.
+                    <div class="card-header">
+                        <h3>Kegiatan akan datang</h3>
                     </div>
+
+                    @if($kegiatanAkanDatang)
+                        <div class="coming-kegiatan-box">
+                            <div class="coming-thumb">
+                                @php
+                                    $img = $kegiatanAkanDatang->Foto_Kegiatan 
+                                        ? asset('storage/' . $kegiatanAkanDatang->Foto_Kegiatan)
+                                        : 'https://images.unsplash.com/photo-1542810634-71277d95dcbb?q=80&w=400&auto=format&fit=crop';
+                                @endphp
+                                <img src="{{ $img }}" alt="{{ $kegiatanAkanDatang->Nama_Kegiatan }}">
+                            </div>
+
+                            <div class="coming-info">
+                                <strong>{{ $kegiatanAkanDatang->Nama_Kegiatan }}</strong>
+                                <small>📅 {{ \Carbon\Carbon::parse($kegiatanAkanDatang->Tanggal_Kegiatan)->translatedFormat('d F Y') }}</small>
+                                <small>📍 {{ $kegiatanAkanDatang->Lokasi ?? 'Semarang' }}</small>
+                            </div>
+                        </div>
+
+                        <div class="coming-meta">
+                            {{ $kegiatanAkanDatang->pendaftaran_count }} / {{ $kegiatanAkanDatang->Kuota }} pendaftar • 
+                            {{ max(0, $kegiatanAkanDatang->Kuota - $kegiatanAkanDatang->pendaftaran_count) }} tempat tersisa
+                        </div>
+
+                        <a href="{{ route('pengurus.kegiatan.index') }}" style="font-size: 12px; font-weight: 600; color: #5d4692; text-decoration: none;">
+                            Kelola Kegiatan →
+                        </a>
+                    @else
+                        <div style="font-size: 12px; color: #8a7fa5;">Belum ada kegiatan terdaftar.</div>
+                    @endif
                 </div>
 
-                <h2 class="section-title">Informasi Sistem</h2>
-                <div class="card">
-                    <p style="font-size:12px;color:#89839f;line-height:1.7">
-                        Dashboard ini digunakan untuk mengelola
-                        operasional Komunitas Ranah Rengkuh.
+                <!-- INFORMASI PENTING -->
+                <div class="info-penting-box">
+                    <h4>Informasi penting</h4>
+                    <p>
+                        {{ $pembayaranMenungguCount }} pembayaran masih menunggu verifikasi. Pantau rekap pembayaran sebelum kegiatan dimulai.<br><br>
+                        Gunakan fitur rekomendasi RAB dengan AI sebelum menyusun anggaran final kegiatan.
                     </p>
                 </div>
+
             </div>
-        </section>
+
+        </div>
 
     </div>
 </main>

@@ -22,9 +22,19 @@ class Kegiatan extends Model
     protected $fillable = [
         'ID_Mandala',
         'Nama_Kegiatan',
+        'Kategori',
         'Tanggal_Kegiatan',
+        'Lokasi',
+        'Waktu',
+        'Penyelenggara',
         'Kuota',
+        'Biaya',
         'Deskripsi',
+        'Foto_Kegiatan',
+        'Tujuan',
+        'Aktivitas',
+        'Persyaratan',
+        'Perlengkapan',
     ];
 
     protected function casts(): array

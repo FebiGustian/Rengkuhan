@@ -1,4 +1,3 @@
-
 <?php
 
 namespace App\Models;
@@ -18,6 +17,9 @@ class Pendaftaran extends Model
         'ID_Volunteer',
         'ID_Kegiatan',
         'Tanggal_Pendaftaran',
+        'Alamat',
+        'Motivasi',
+        'Pengalaman',
     ];
 
     protected function casts(): array
