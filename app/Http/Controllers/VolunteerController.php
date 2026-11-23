@@ -144,8 +144,45 @@ class VolunteerController extends Controller
             return $pembayaran->ID_Pembayaran;
         });
 
-        return redirect()->route('volunteer.pembayaran.instruksi', $pembayaranId)
-            ->with('success', 'Pendaftaran kegiatan berhasil dikirim! Silakan selesaikan pembayaran.');
+        // Diarahkan langsung ke halaman Pilih Metode Pembayaran Figma
+        return redirect()->route('volunteer.pembayaran.metode', $pembayaranId)
+            ->with('success', 'Pendaftaran berhasil dikirim! Silakan pilih metode pembayaran.');
+    }
+
+    // HALAMAN PILIH METODE PEMBAYARAN (FIGMA)
+    public function pilihMetodePembayaran(int $idPembayaran)
+    {
+        $volunteerId = session('auth_id');
+        $pembayaran = Pembayaran::with(['pendaftaran.kegiatan', 'pendaftaran.volunteer'])
+            ->whereHas('pendaftaran', function ($q) use ($volunteerId) {
+                $q->where('ID_Volunteer', $volunteerId);
+            })
+            ->findOrFail($idPembayaran);
+
+        if ($pembayaran->Status === 'Lunas') {
+            return redirect()->route('volunteer.pembayaran.sukses', $pembayaran->ID_Pembayaran);
+        }
+
+        return view('volunteer.pilih-metode-pembayaran', [
+            'pembayaran' => $pembayaran,
+            'pendaftaran' => $pembayaran->pendaftaran,
+            'nama' => session('auth_name'),
+        ]);
+    }
+
+    // PROSES PILIHAN METODE KE INSTRUKSI
+    public function prosesPilihanMetode(Request $request, int $idPembayaran)
+    {
+        $volunteerId = session('auth_id');
+        $pembayaran = Pembayaran::whereHas('pendaftaran', function ($q) use ($volunteerId) {
+            $q->where('ID_Volunteer', $volunteerId);
+        })->findOrFail($idPembayaran);
+
+        $pembayaran->update([
+            'Metode_Pembayaran' => $request->metode ?? 'QRIS',
+        ]);
+
+        return redirect()->route('volunteer.pembayaran.instruksi', $pembayaran->ID_Pembayaran);
     }
 
     // HALAMAN INSTRUKSI PEMBAYARAN (FIGMA)
@@ -158,7 +195,44 @@ class VolunteerController extends Controller
             })
             ->findOrFail($idPembayaran);
 
+        if ($pembayaran->Status === 'Lunas') {
+            return redirect()->route('volunteer.pembayaran.sukses', $pembayaran->ID_Pembayaran);
+        }
+
         return view('volunteer.instruksi-pembayaran', [
+            'pembayaran' => $pembayaran,
+            'pendaftaran' => $pembayaran->pendaftaran,
+            'nama' => session('auth_name'),
+        ]);
+    }
+
+    // SIMULASI PEMBAYARAN SUKSES (MIDTRANS GATEWAY SIMULATOR)
+    public function simulasiPembayaranSukses(int $idPembayaran)
+    {
+        $volunteerId = session('auth_id');
+        $pembayaran = Pembayaran::whereHas('pendaftaran', function ($q) use ($volunteerId) {
+            $q->where('ID_Volunteer', $volunteerId);
+        })->findOrFail($idPembayaran);
+
+        $pembayaran->update([
+            'Status' => 'Lunas',
+        ]);
+
+        return redirect()->route('volunteer.pembayaran.sukses', $pembayaran->ID_Pembayaran)
+            ->with('success', 'Pembayaran berhasil dikonfirmasi secara instan!');
+    }
+
+    // HALAMAN STRUK PEMBAYARAN BERHASIL (FIGMA)
+    public function pembayaranBerhasil(int $idPembayaran)
+    {
+        $volunteerId = session('auth_id');
+        $pembayaran = Pembayaran::with(['pendaftaran.kegiatan', 'pendaftaran.volunteer'])
+            ->whereHas('pendaftaran', function ($q) use ($volunteerId) {
+                $q->where('ID_Volunteer', $volunteerId);
+            })
+            ->findOrFail($idPembayaran);
+
+        return view('volunteer.pembayaran-berhasil', [
             'pembayaran' => $pembayaran,
             'pendaftaran' => $pembayaran->pendaftaran,
             'nama' => session('auth_name'),

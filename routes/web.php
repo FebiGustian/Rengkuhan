@@ -33,7 +33,11 @@ Route::middleware(['role:volunteer'])->prefix('dashboard/volunteer')->name('volu
 
     // Pembayaran & Riwayat
     Route::get('/pembayaran', [VolunteerController::class, 'halamanPembayaran'])->name('pembayaran');
+    Route::get('/pembayaran/{idPembayaran}/metode', [VolunteerController::class, 'pilihMetodePembayaran'])->name('pembayaran.metode');
+    Route::post('/pembayaran/{idPembayaran}/metode', [VolunteerController::class, 'prosesPilihanMetode'])->name('pembayaran.proses');
     Route::get('/pembayaran/{idPembayaran}/instruksi', [VolunteerController::class, 'instruksiPembayaran'])->name('pembayaran.instruksi');
+    Route::post('/pembayaran/{idPembayaran}/simulasi-sukses', [VolunteerController::class, 'simulasiPembayaranSukses'])->name('pembayaran.simulasi.sukses');
+    Route::get('/pembayaran/{idPembayaran}/sukses', [VolunteerController::class, 'pembayaranBerhasil'])->name('pembayaran.sukses');
     Route::post('/pembayaran/{idPembayaran}/konfirmasi', [VolunteerController::class, 'konfirmasiPembayaran'])->name('pembayaran.konfirmasi');
     Route::get('/riwayat', [VolunteerController::class, 'halamanRiwayat'])->name('riwayat');
 
