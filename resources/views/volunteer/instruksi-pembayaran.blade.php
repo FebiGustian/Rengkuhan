@@ -16,130 +16,27 @@ body {
 }
 
 /* SIDEBAR FIGMA */
-.sidebar {
-    position: fixed;
-    inset: 0 auto 0 0;
-    width: 220px;
-    background: #ded7f4;
-    padding: 24px 16px;
-    display: flex;
-    flex-direction: column;
-    z-index: 10;
-}
-
+.sidebar { position: fixed; inset: 0 auto 0 0; width: 220px; background: #ded7f4; padding: 24px 16px; display: flex; flex-direction: column; z-index: 10; }
 .brand { padding: 0 8px 24px; }
 .brand img { width: 140px; max-height: 60px; object-fit: contain; }
-
-.menu {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 10px;
-}
-
-.menu a {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 12px 14px;
-    border-radius: 10px;
-    color: #55447a;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 600;
-    transition: all .2s;
-}
-
-.menu a:hover,
-.menu a.active {
-    background: #5d4692;
-    color: white;
-}
-
-.logout-box {
-    margin-top: auto;
-    padding-top: 20px;
-}
-
-.logout-box button {
-    width: 100%;
-    border: none;
-    background: transparent;
-    color: #55447a;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 14px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    border-radius: 10px;
-}
-
+.menu { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+.menu a { display: flex; align-items: center; gap: 14px; padding: 12px 14px; border-radius: 10px; color: #55447a; text-decoration: none; font-size: 14px; font-weight: 600; transition: all .2s; }
+.menu a:hover, .menu a.active { background: #5d4692; color: white; }
+.logout-box { margin-top: auto; padding-top: 20px; }
+.logout-box button { width: 100%; border: none; background: transparent; color: #55447a; display: flex; align-items: center; gap: 12px; padding: 12px 14px; font-size: 14px; font-weight: 600; cursor: pointer; border-radius: 10px; }
 .logout-box button:hover { background: rgba(93, 70, 146, 0.12); }
 
 /* MAIN */
-.main {
-    margin-left: 220px;
-    min-height: 100vh;
-}
-
-.topbar {
-    height: 58px;
-    background: #7bbcf5;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 32px;
-    color: #2e2154;
-    font-size: 13px;
-    font-weight: 600;
-}
-
+.main { margin-left: 220px; min-height: 100vh; }
+.topbar { height: 58px; background: #7bbcf5; display: flex; justify-content: space-between; align-items: center; padding: 0 32px; color: #2e2154; font-size: 13px; font-weight: 600; }
 .breadcrumb { color: #2b1d56; }
-.breadcrumb span { opacity: 0.7; }
+.topbar-right { display: flex; align-items: center; gap: 16px; }
+.user-profile { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; }
+.user-avatar { width: 30px; height: 30px; background: #ffffff; border-radius: 50%; display: grid; place-items: center; font-size: 13px; color: #5d4692; }
 
-.topbar-right {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
-
-.user-profile {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    font-weight: 700;
-}
-
-.user-avatar {
-    width: 30px;
-    height: 30px;
-    background: #ffffff;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    font-size: 13px;
-    color: #5d4692;
-}
-
-.content {
-    padding: 28px 32px 50px;
-}
-
-.page-title {
-    font-size: 26px;
-    font-weight: 800;
-    color: #3b2a68;
-    margin: 0 0 6px;
-}
-
-.page-subtitle {
-    font-size: 13px;
-    color: #6a5c8e;
-    margin: 0 0 24px;
-}
+.content { padding: 28px 32px 50px; }
+.page-title { font-size: 26px; font-weight: 800; color: #3b2a68; margin: 0 0 6px; }
+.page-subtitle { font-size: 13px; color: #6a5c8e; margin: 0 0 24px; }
 
 /* LAYOUT GRID FIGMA */
 .payment-grid {
@@ -168,37 +65,48 @@ body {
     margin-bottom: 22px;
 }
 
-.qris-title {
-    font-size: 16px;
+.method-title {
+    font-size: 17px;
     font-weight: 800;
     color: #3b2a68;
     margin-bottom: 14px;
 }
 
-.qris-box {
-    width: 200px;
-    height: 200px;
-    border: 2px dashed #9d8bc9;
-    border-radius: 14px;
+/* QRIS & VA DISPLAY BOX */
+.qris-display-box {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    padding: 16px;
-    margin-bottom: 20px;
     background: #faf8fe;
+    border: 2px dashed #a491ce;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
-.qris-box strong {
-    font-size: 15px;
-    color: #4b387e;
-    margin-bottom: 4px;
+.qris-qr-image {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+    background: #ffffff;
+    padding: 8px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    margin-bottom: 10px;
 }
 
-.qris-box small {
-    font-size: 11px;
-    color: #8c80a8;
+.va-number-box {
+    background: #ffffff;
+    border: 1px solid #d4c8ea;
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-size: 22px;
+    font-weight: 800;
+    color: #3b2a68;
+    letter-spacing: 2px;
+    margin: 8px 0;
 }
 
 .instruction-list {
@@ -209,7 +117,7 @@ body {
     line-height: 1.8;
 }
 
-/* KODE PEMBAYARAN BOX */
+/* KODE BOX */
 .kode-box {
     background: #f8f6fd;
     border-radius: 12px;
@@ -217,19 +125,8 @@ body {
     margin-bottom: 14px;
 }
 
-.kode-box small {
-    display: block;
-    font-size: 11px;
-    color: #887b9e;
-    margin-bottom: 4px;
-}
-
-.kode-box strong {
-    font-size: 20px;
-    font-weight: 800;
-    color: #3b2a68;
-    letter-spacing: 1px;
-}
+.kode-box small { display: block; font-size: 11px; color: #887b9e; margin-bottom: 4px; }
+.kode-box strong { font-size: 20px; font-weight: 800; color: #3b2a68; letter-spacing: 1px; }
 
 .btn-salin {
     width: 100%;
@@ -242,13 +139,12 @@ body {
     color: #4b367d;
     cursor: pointer;
     transition: background .2s;
+    margin-bottom: 12px;
 }
 
-.btn-salin:hover {
-    background: #f6f3fc;
-}
+.btn-salin:hover { background: #f6f3fc; }
 
-/* CARD KANAN FIGMA */
+/* KANAN FIGMA */
 .summary-card {
     background: #ffffff;
     border: 1px solid #ebe4f7;
@@ -257,24 +153,9 @@ body {
     box-shadow: 0 4px 18px rgba(60, 45, 110, 0.05);
 }
 
-.summary-card h3 {
-    margin: 0 0 8px;
-    font-size: 17px;
-    font-weight: 800;
-    color: #3b2a68;
-}
-
-.summary-user-meta {
-    font-size: 12px;
-    color: #7b6f98;
-    margin-bottom: 6px;
-}
-
-.summary-date-meta {
-    font-size: 12px;
-    color: #8f84aa;
-    margin-bottom: 20px;
-}
+.summary-card h3 { margin: 0 0 8px; font-size: 17px; font-weight: 800; color: #3b2a68; }
+.summary-user-meta { font-size: 12px; color: #7b6f98; margin-bottom: 6px; }
+.summary-date-meta { font-size: 12px; color: #8f84aa; margin-bottom: 20px; }
 
 .total-pay-box {
     background: #f8f6fd;
@@ -283,77 +164,69 @@ body {
     margin-bottom: 18px;
 }
 
-.total-pay-box small {
-    display: block;
-    font-size: 11px;
-    color: #7e719c;
-    margin-bottom: 4px;
-}
+.total-pay-box small { display: block; font-size: 11px; color: #7e719c; margin-bottom: 4px; }
+.total-pay-box strong { font-size: 26px; font-weight: 800; color: #3b2a68; }
 
-.total-pay-box strong {
-    font-size: 26px;
-    font-weight: 800;
-    color: #3b2a68;
-}
-
-.deadline-meta {
-    font-size: 11px;
-    color: #7e719c;
-    margin-bottom: 4px;
-}
-
-.deadline-time {
-    font-size: 13px;
-    font-weight: 700;
-    color: #3b2a68;
-    margin-bottom: 22px;
-}
-
-.btn-cek-status {
+.btn-simulasi-bayar {
     width: 100%;
     padding: 14px;
-    background: #5d4692;
+    background: #17834a;
     color: #ffffff;
     border: none;
     border-radius: 12px;
     font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(23, 131, 74, 0.25);
+    transition: background .2s, transform .2s;
+    margin-bottom: 10px;
+}
+
+.btn-simulasi-bayar:hover {
+    background: #126739;
+    transform: translateY(-2px);
+}
+
+.btn-cek-status {
+    width: 100%;
+    padding: 12px;
+    background: #5d4692;
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-size: 13px;
     font-weight: 700;
     cursor: pointer;
     margin-bottom: 10px;
-    transition: background .2s;
     text-align: center;
     text-decoration: none;
     display: block;
 }
 
-.btn-cek-status:hover {
-    background: #4a3678;
-}
-
 .btn-kembali-secondary {
     width: 100%;
-    padding: 12px;
+    padding: 11px;
     background: #ffffff;
     border: 1px solid #d4c9ea;
     border-radius: 12px;
     font-size: 13px;
     font-weight: 700;
     color: #55447a;
-    cursor: pointer;
     text-align: center;
     text-decoration: none;
     display: block;
     margin-bottom: 14px;
 }
 
-.btn-kembali-secondary:hover {
-    background: #f7f4fc;
-}
-
-.simulasi-note {
+.simulasi-banner {
+    background: #ebf5ff;
+    border-left: 4px solid #3b82f6;
+    padding: 10px 14px;
+    border-radius: 6px;
     font-size: 11px;
-    color: #9287ae;
-    text-align: center;
+    color: #1e40af;
+    line-height: 1.5;
+    margin-top: 14px;
 }
 
 @media(max-width: 900px) {
@@ -417,15 +290,15 @@ body {
         <h1 class="page-title">Instruksi Pembayaran</h1>
         <p class="page-subtitle">Selesaikan pembayaran sebelum batas waktu untuk mengamankan tempatmu.</p>
 
-        @if(session('success'))
-            <div style="background: #d4edda; color: #155724; padding: 12px 18px; border-radius: 9px; margin-bottom: 16px; font-size: 13px;">
-                ✓ {{ session('success') }}
-            </div>
-        @endif
-
         @php
             $kodeBayar = 'RR-REG-' . date('Ymd', strtotime($pendaftaran->Tanggal_Pendaftaran)) . '-' . str_pad($pendaftaran->ID_Pendaftaran, 3, '0', STR_PAD_LEFT);
             $deadline = \Carbon\Carbon::parse($pendaftaran->Tanggal_Pendaftaran)->addDay()->setTime(11, 0)->translatedFormat('d F Y, H.i \W\I\B');
+            $metode = $pembayaran->Metode_Pembayaran ?? 'QRIS';
+            $nominal = $pembayaran->Nominal;
+
+            // QRIS Dinamis via QRServer API
+            $qrisData = '00020101021226670014ID.LINKAJA.WWW01189360091100223403560215' . $kodeBayar . '520458125303360540' . $nominal . '5802ID5912RanahRengkuh6008Semarang';
+            $qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=' . urlencode($qrisData);
         @endphp
 
         <div class="payment-grid">
@@ -433,32 +306,59 @@ body {
             <!-- CARD KIRI FIGMA -->
             <div class="payment-card">
                 <div class="status-banner-pending">
-                    @if($pembayaran->Status === 'Lunas')
-                        <span style="color: #155724;">✓ Pembayaran Berhasil & Telah Diterima</span>
-                    @elseif($pembayaran->Status === 'Menunggu Verifikasi')
-                        <span style="color: #0c5460;">⏳ Sedang Diverifikasi oleh Pengurus</span>
-                    @else
-                        Menunggu Pembayaran
-                    @endif
+                    Menunggu Pembayaran ({{ $metode }})
                 </div>
 
-                <div class="qris-title">QRIS / Pembayaran Digital</div>
+                @if($metode === 'Virtual Account')
+                    <div class="method-title">Virtual Account (Midtrans Gateway)</div>
+                    <div class="qris-display-box">
+                        <small style="color: #6a598f; font-weight: 700; text-transform: uppercase;">Nomor Rekening Virtual Account</small>
+                        <div class="va-number-box" id="kodeRef">88019{{ str_pad($pendaftaran->ID_Pendaftaran, 8, '0', STR_PAD_LEFT) }}</div>
+                        <small style="color: #8c80a8;">BCA / Mandiri / BRI / BNI Virtual Account</small>
+                    </div>
 
-                <div class="qris-box">
-                    <strong>Area QRIS</strong>
-                    <small>Scan QRIS Ranah Rengkuh<br>(BCA / Mandiri / GoPay / OVO)</small>
-                </div>
+                    <ol class="instruction-list">
+                        <li>Buka aplikasi m-Banking atau ATM bank pilihanmu.</li>
+                        <li>Pilih menu <strong>Transfer > Virtual Account</strong>.</li>
+                        <li>Masukkan nomor Virtual Account di atas.</li>
+                        <li>Pastikan nama tertera <strong>Ranah Rengkuh - {{ $nama }}</strong> dengan nominal Rp{{ number_format($nominal, 0, ',', '.') }}.</li>
+                        <li>Konfirmasi transaksi untuk menyelesaikan pembayaran.</li>
+                    </ol>
+                @elseif($metode === 'E-Wallet')
+                    <div class="method-title">E-Wallet Direct (GoPay / OVO / ShopeePay)</div>
+                    <div class="qris-display-box">
+                        <strong style="font-size: 16px; color: #433171; margin-bottom: 6px;">📱 Pembayaran Dompet Digital</strong>
+                        <p style="margin: 0 0 10px; font-size: 12px; color: #766996;">Nomor HP Terdaftar: <strong>{{ $pendaftaran->volunteer->No_Telpon ?? '081234567890' }}</strong></p>
+                        <img src="{{ $qrUrl }}" class="qris-qr-image" alt="QR E-Wallet">
+                        <small style="color: #8c80a8;">Scan menggunakan aplikasi E-Wallet pilihanmu</small>
+                    </div>
 
-                <ol class="instruction-list">
-                    <li>Buka aplikasi bank atau dompet digital yang mendukung QRIS.</li>
-                    <li>Pindai kode QR pembayaran yang tersedia.</li>
-                    <li>Periksa nama penerima dan nominal Rp{{ number_format($pembayaran->Nominal, 0, ',', '.') }}.</li>
-                    <li>Konfirmasi pembayaran, lalu cek status pembayaran kamu.</li>
-                </ol>
+                    <ol class="instruction-list">
+                        <li>Buka aplikasi GoPay, OVO, ShopeePay, atau DANA.</li>
+                        <li>Pindai QR code di atas atau masukkan kode referensi pembayaran.</li>
+                        <li>Periksa rincian pembayaran Rp{{ number_format($nominal, 0, ',', '.') }}.</li>
+                        <li>Selesaikan pembayaran menggunakan saldo dompet digitalmu.</li>
+                    </ol>
+                @else
+                    <!-- DEFAULT: QRIS RESMI SESUAI FIGMA -->
+                    <div class="method-title">QRIS Dinamis</div>
+                    <div class="qris-display-box">
+                        <img src="{{ $qrUrl }}" class="qris-qr-image" alt="QRIS Ranah Rengkuh">
+                        <strong style="font-size: 15px; color: #3b2a68;">Scan QRIS Ranah Rengkuh</strong>
+                        <small style="color: #8c80a8;">Mendukung seluruh m-Banking & Dompet Digital Indonesia</small>
+                    </div>
+
+                    <ol class="instruction-list">
+                        <li>Buka aplikasi bank atau dompet digital yang mendukung QRIS (BCA, Mandiri, GoPay, OVO, dll).</li>
+                        <li>Pindai kode QR dinamis pembayaran di atas.</li>
+                        <li>Periksa nama penerima <strong>Ranah Rengkuh</strong> dan nominal Rp{{ number_format($nominal, 0, ',', '.') }}.</li>
+                        <li>Konfirmasi pembayaran untuk mengamankan slot relawanmu.</li>
+                    </ol>
+                @endif
 
                 <div class="kode-box">
-                    <small>Kode / referensi pembayaran</small>
-                    <strong id="kodeRef">{{ $kodeBayar }}</strong>
+                    <small>Kode referensi pembayaran</small>
+                    <strong id="kodeRefCopy">{{ $kodeBayar }}</strong>
                 </div>
 
                 <button class="btn-salin" onclick="salinKode()">
@@ -476,26 +376,32 @@ body {
 
                 <div class="total-pay-box">
                     <small>Total pembayaran</small>
-                    <strong>Rp{{ number_format($pembayaran->Nominal, 0, ',', '.') }}</strong>
+                    <strong>Rp{{ number_format($nominal, 0, ',', '.') }}</strong>
                 </div>
 
-                <div class="deadline-meta">Batas waktu pembayaran</div>
-                <div class="deadline-time">{{ $deadline }}</div>
+                <!-- TOMBOL SIMULASI PEMBAYARAN SUKSES MIDTRANS -->
+                <form method="POST" action="{{ route('volunteer.pembayaran.simulasi.sukses', $pembayaran->ID_Pembayaran) }}">
+                    @csrf
+                    <button type="submit" class="btn-simulasi-bayar">
+                        ⚡ Bayar Sukses (Simulasi Midtrans)
+                    </button>
+                </form>
 
                 <form method="POST" action="{{ route('volunteer.pembayaran.konfirmasi', $pembayaran->ID_Pembayaran) }}">
                     @csrf
-                    <input type="hidden" name="metode" value="QRIS">
+                    <input type="hidden" name="metode" value="{{ $metode }}">
                     <button type="submit" class="btn-cek-status">
                         Cek Status Pembayaran
                     </button>
                 </form>
 
-                <a href="{{ route('volunteer.dashboard') }}" class="btn-kembali-secondary">
-                    Kembali ke Dashboard
+                <a href="{{ route('volunteer.pembayaran.metode', $pembayaran->ID_Pembayaran) }}" class="btn-kembali-secondary">
+                    Ganti Metode Pembayaran
                 </a>
 
-                <div class="simulasi-note">
-                    Contoh pembayaran untuk simulasi kerelawanan Ranah Rengkuh.
+                <div class="simulasi-banner">
+                    💡 <strong>Mode Simulasi Midtrans:</strong><br>
+                    Kamu bisa klik tombol hijau <em>"Bayar Sukses"</em> di atas untuk langsung menguji flow pembayaran berhasil & melihat struk bukti lunasnya!
                 </div>
             </div>
 
@@ -506,9 +412,10 @@ body {
 
 <script>
 function salinKode() {
-    const kode = document.getElementById('kodeRef').innerText;
+    const el = document.getElementById('kodeRef') || document.getElementById('kodeRefCopy');
+    const kode = el.innerText;
     navigator.clipboard.writeText(kode).then(() => {
-        alert('Kode pembayaran ' + kode + ' berhasil disalin!');
+        alert('Kode / Nomor ' + kode + ' berhasil disalin ke clipboard!');
     });
 }
 </script>
