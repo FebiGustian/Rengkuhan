@@ -12,21 +12,22 @@
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Arial, sans-serif;
     background: #eaf4ff;
-    color: #554783;
+    color: #43396d;
 }
 
 /* SIDEBAR */
 .sidebar {
     position: fixed;
     inset: 0 auto 0 0;
-    width: 170px;
+    width: 200px;
     background: #ded7f4;
-    padding: 15px 10px;
+    padding: 16px 12px;
     display: flex;
     flex-direction: column;
-    z-index: 5;
+    z-index: 10;
+    box-shadow: 2px 0 10px rgba(100, 80, 160, 0.08);
 }
 
 .brand {
@@ -36,37 +37,39 @@ body {
 }
 
 .brand img {
-    width: 135px;
-    height: 70px;
+    width: 145px;
+    max-height: 65px;
     object-fit: contain;
 }
 
 .menu {
-    margin-top: 16px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 .menu a {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 12px 10px;
-    margin-bottom: 5px;
-    border-radius: 8px;
-    color: #66578e;
+    padding: 11px 12px;
+    border-radius: 9px;
+    color: #5d4d87;
     text-decoration: none;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
-    transition: .2s;
+    transition: all .2s;
 }
 
 .menu a:hover,
 .menu a.active {
-    background: #69539f;
+    background: #6c54a3;
     color: white;
 }
 
 .menu-icon {
-    width: 18px;
+    width: 20px;
     text-align: center;
     font-size: 15px;
 }
@@ -81,390 +84,575 @@ body {
     width: 100%;
     border: 0;
     background: transparent;
-    color: #66578e;
+    color: #5d4d87;
     text-align: left;
-    padding: 12px 10px;
-    font-size: 12px;
+    padding: 10px 12px;
+    font-size: 13px;
     font-weight: 600;
     cursor: pointer;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background .2s;
 }
 
-/* MAIN */
+.logout button:hover {
+    background: rgba(108, 84, 163, 0.15);
+    color: #4b367d;
+}
+
+/* MAIN CONTENT */
 .main {
-    margin-left: 170px;
+    margin-left: 200px;
     min-height: 100vh;
 }
 
 .topbar {
-    height: 48px;
-    background: #79b8f3;
+    height: 54px;
+    background: #7bbcf5;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
-    color: #554783;
-    font-size: 11px;
+    padding: 0 24px;
+    color: #3b2c68;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(90, 140, 200, 0.15);
 }
 
 .topbar-right {
     display: flex;
     align-items: center;
-    gap: 18px;
+    gap: 16px;
 }
 
-.notification {
-    font-size: 16px;
-}
-
-.avatar {
-    width: 27px;
-    height: 27px;
-    border-radius: 50%;
-    background: #f2eafa;
-    display: grid;
-    place-items: center;
-    font-size: 14px;
-}
-
-.profile {
+.profile-badge {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-weight: 600;
+    background: rgba(255, 255, 255, 0.45);
+    padding: 5px 12px;
+    border-radius: 20px;
+}
+
+.avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #6c54a3;
+    color: white;
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+    font-weight: bold;
 }
 
 .content {
-    padding: 8px 12px 20px;
+    padding: 16px 22px 30px;
 }
 
-/* HERO BANNER */
-.hero {
-    height: 132px;
+/* ALERTS */
+.alert {
+    padding: 12px 16px;
     border-radius: 9px;
-    overflow: hidden;
+    font-size: 13px;
+    margin-bottom: 14px;
+}
+
+.alert-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.alert-danger { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+
+/* SLIDESHOW HERO */
+.slideshow-container {
     position: relative;
-    padding: 20px;
-    background:
-        radial-gradient(ellipse at 10% 110%, #fff4db 0 13%, transparent 14%),
-        radial-gradient(ellipse at 35% 120%, #fff 0 17%, transparent 18%),
-        radial-gradient(ellipse at 75% 115%, #fff2d9 0 15%, transparent 16%),
-        linear-gradient(180deg, #d8edff 0%, #a8d5fb 65%, #f4f4ff 100%);
-    margin-bottom: 9px;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 18px;
+    box-shadow: 0 5px 18px rgba(95, 125, 185, 0.16);
+    background: #463470;
+    height: 220px;
 }
 
-.hero h1 {
+.slide {
+    display: none;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    animation: fadeEffect 0.8s ease-in-out;
+}
+
+.slide.active {
+    display: block;
+}
+
+@keyframes fadeEffect {
+    from { opacity: 0.4; transform: scale(1.02); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.slide-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.72);
+}
+
+.slide-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(32, 23, 62, 0.85) 0%, rgba(42, 33, 76, 0.4) 60%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 24px 34px;
+    color: white;
+}
+
+.slide-tag {
+    display: inline-block;
+    align-self: flex-start;
+    padding: 4px 10px;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(6px);
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 8px;
+}
+
+.slide-title {
     font-size: 23px;
-    margin: 0 0 7px;
-    color: #66539b;
+    font-weight: 800;
+    margin: 0 0 6px;
+    line-height: 1.3;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.4);
 }
 
-.hero p {
-    font-size: 9px;
-    line-height: 1.6;
-    max-width: 330px;
+.slide-desc {
+    font-size: 13px;
+    max-width: 500px;
     margin: 0;
-    color: #655b91;
+    color: #e5defc;
+    line-height: 1.5;
 }
 
-.hero-decoration {
+.slide-nav {
     position: absolute;
-    right: 28px;
-    bottom: 5px;
-    font-size: 48px;
-    letter-spacing: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+    border: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    display: grid;
+    place-items: center;
+    transition: background .2s;
+    backdrop-filter: blur(4px);
+    z-index: 2;
 }
 
-.bird {
+.slide-nav:hover { background: rgba(255, 255, 255, 0.6); color: #3b2c68; }
+.slide-prev { left: 14px; }
+.slide-next { right: 14px; }
+
+.slide-dots {
     position: absolute;
-    color: #f6a36d;
-    font-size: 20px;
+    bottom: 12px;
+    left: 34px;
+    display: flex;
+    gap: 6px;
+    z-index: 2;
 }
 
-.bird.one { right: 38%; top: 18px; }
-.bird.two { right: 28%; top: 32px; }
-.bird.three { right: 18%; top: 13px; }
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: all .2s;
+}
+
+.dot.active {
+    background: #ffffff;
+    width: 22px;
+    border-radius: 6px;
+}
 
 /* STAT CARDS */
 .stats {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 8px;
-    margin-bottom: 9px;
+    gap: 14px;
+    margin-bottom: 16px;
 }
 
 .stat {
-    min-height: 90px;
-    border-radius: 9px;
-    padding: 12px;
+    min-height: 85px;
+    border-radius: 12px;
+    padding: 15px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    box-shadow: 0 2px 5px rgba(75, 70, 120, .10);
+    gap: 14px;
+    box-shadow: 0 3px 10px rgba(80, 75, 130, 0.08);
 }
 
-.stat.purple { background: #e7ddfa; }
-.stat.blue { background: #d2eaff; }
-.stat.yellow { background: #fff0cf; }
+.stat.purple { background: #e8dffc; }
+.stat.blue { background: #d7ecff; }
+.stat.yellow { background: #fff1d4; }
 
 .stat-icon {
-    width: 37px;
-    height: 37px;
+    width: 42px;
+    height: 42px;
     flex-shrink: 0;
     display: grid;
     place-items: center;
     border-radius: 50%;
-    background: rgba(255,255,255,.65);
-    font-size: 19px;
+    background: rgba(255,255,255,.75);
+    font-size: 20px;
+    color: #533e88;
 }
 
 .stat-label {
-    font-size: 9px;
-    font-weight: bold;
-    color: #66559a;
-    margin-bottom: 5px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #634f96;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
 }
 
 .stat-value {
-    font-size: 21px;
-    font-weight: bold;
-    color: #4f4385;
+    font-size: 22px;
+    font-weight: 800;
+    color: #3b2c68;
 }
 
 .stat-note {
-    font-size: 8px;
-    color: #8279a1;
-    margin-top: 4px;
+    font-size: 11px;
+    color: #776a9c;
+    margin-top: 2px;
 }
 
-/* DASHBOARD COLUMNS */
+/* GRID */
 .dashboard-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.55fr) minmax(210px, .9fr);
-    gap: 9px;
+    grid-template-columns: minmax(0, 1.8fr) minmax(290px, 1.15fr);
+    gap: 16px;
 }
 
 .panel {
-    background: #f8f6ff;
-    border: 1px solid #e3dcf2;
-    border-radius: 9px;
-    padding: 10px;
-    box-shadow: 0 2px 5px rgba(75,70,120,.08);
-    margin-bottom: 9px;
+    background: #ffffff;
+    border: 1px solid #e1daf2;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 16px;
+    box-shadow: 0 3px 10px rgba(90, 80, 140, 0.05);
 }
 
 .panel-heading {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 9px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0ecf9;
 }
 
 .panel-heading h2 {
-    margin: 0;
-    font-size: 12px;
-    color: #59488d;
-}
-
-.panel-heading a {
-    color: #8272b0;
-    font-size: 8px;
-    text-decoration: none;
-}
-
-.activity {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: #f6f3fc;
-    border: 1px solid #d9d1e8;
-    border-radius: 7px;
-    padding: 6px;
-    margin-bottom: 6px;
-}
-
-.activity-image {
-    width: 52px;
-    height: 48px;
-    flex-shrink: 0;
-    border-radius: 5px;
-    background: linear-gradient(140deg, #a8d6ad, #e7d8a8);
-    display: grid;
-    place-items: center;
-    font-size: 24px;
-}
-
-.activity-info {
-    flex: 1;
-    min-width: 0;
-}
-
-.activity-info strong {
-    display: block;
-    font-size: 9px;
-    color: #554783;
-    margin-bottom: 5px;
-}
-
-.activity-info small {
-    display: block;
-    font-size: 8px;
-    color: #827a9b;
-    margin-bottom: 4px;
-}
-
-.tag {
-    display: inline-block;
-    padding: 3px 6px;
-    border-radius: 10px;
-    font-size: 7px;
-    background: #d9f2d9;
-    color: #43844d;
-    margin-right: 3px;
-}
-
-.tag.pending {
-    background: #fff0c9;
-    color: #9b7930;
-}
-
-.tag.done {
-    background: #e7ddfa;
-    color: #69539f;
-}
-
-.detail-link {
-    font-size: 8px;
-    color: #7563a4;
-    text-decoration: none;
-    white-space: nowrap;
-}
-
-/* ANNOUNCEMENT */
-.announcement {
-    background: white;
-    padding: 12px;
-    border-radius: 7px;
-    box-shadow: 0 2px 5px rgba(75,70,120,.12);
-}
-
-.announcement h3 {
-    font-size: 13px;
-    margin: 0 0 9px;
-    color: #5b4a91;
-}
-
-.announcement p {
-    font-size: 9px;
-    line-height: 1.6;
-    color: #827a9b;
+    font-size: 15px;
+    font-weight: 700;
+    color: #4a387e;
     margin: 0;
 }
 
-.announcement small {
-    display: block;
-    font-size: 8px;
-    color: #a29ab7;
-    margin-top: 8px;
-}
-
-/* AVAILABLE ACTIVITIES */
+/* CARDS KEGIATAN TERSEDIA */
 .available-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 7px;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
 }
 
 .available-card {
-    border: 1px solid #d9d1e8;
-    border-radius: 7px;
-    padding: 6px;
-    background: #f8f6ff;
+    border: 1px solid #e9e3f7;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #faf9fe;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform .2s, box-shadow .2s;
 }
 
-.available-image {
-    height: 75px;
-    border-radius: 5px;
-    background: linear-gradient(135deg, #a4d5a9, #e8dfb4);
+.available-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(100, 80, 150, 0.12);
+}
+
+.available-thumb-box {
+    width: 100%;
+    height: 120px;
+    background: linear-gradient(135deg, #a7cbf5, #c8b9ee);
+    position: relative;
+    overflow: hidden;
+}
+
+.available-thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.available-thumb-placeholder {
+    width: 100%;
+    height: 100%;
     display: grid;
     place-items: center;
-    font-size: 32px;
+    font-size: 38px;
+}
+
+.available-card-body {
+    padding: 12px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.available-badge {
+    display: inline-block;
+    align-self: flex-start;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: #e5defc;
+    color: #553e8a;
+    font-size: 11px;
+    font-weight: 700;
     margin-bottom: 6px;
 }
 
-.available-card strong {
-    display: block;
-    font-size: 9px;
-    margin-bottom: 5px;
+.available-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #3b2c68;
+    margin-bottom: 6px;
+    line-height: 1.35;
 }
 
-.available-card small {
-    display: block;
-    font-size: 8px;
-    color: #827a9b;
+.available-desc {
+    font-size: 12px;
+    color: #665b8e;
+    line-height: 1.45;
+    margin-bottom: 10px;
+}
+
+.available-meta {
+    font-size: 11px;
+    color: #7a6e9f;
     margin-bottom: 4px;
-}
-
-.available-card a {
-    display: inline-block;
-    text-decoration: none;
-    color: #fff;
-    background: #8a78c0;
-    border-radius: 10px;
-    font-size: 8px;
-    padding: 4px 8px;
-    margin-top: 4px;
-}
-
-/* MOTIVATION */
-.motivation {
-    min-height: 125px;
-    border-radius: 8px;
-    padding: 20px 12px;
-    text-align: center;
     display: flex;
     align-items: center;
-    justify-content: center;
-    background:
-        radial-gradient(ellipse at 10% 110%, #fff 0 17%, transparent 18%),
-        radial-gradient(ellipse at 90% 110%, #fff1d9 0 20%, transparent 21%),
-        linear-gradient(140deg, #d9edff, #b7d8f7);
+    gap: 6px;
 }
 
-.motivation p {
-    max-width: 180px;
+.btn-daftar {
+    margin-top: 10px;
+    padding: 8px 14px;
+    background: #6c54a3;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s;
+    width: 100%;
+}
+
+.btn-daftar:hover { background: #553e8a; }
+.btn-disabled { background: #cfc7e6; color: #726894; cursor: not-allowed; }
+
+/* LIST KEGIATAN SAYA */
+.my-kegiatan-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    border-radius: 9px;
+    background: #fbfaff;
+    border: 1px solid #ebe5f8;
+    margin-bottom: 10px;
+    gap: 12px;
+}
+
+.badge-status {
+    padding: 4px 9px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.badge-lunas { background: #d4edda; color: #155724; }
+.badge-menunggu { background: #fff3cd; color: #856404; }
+.badge-verifikasi { background: #d1ecf1; color: #0c5460; }
+.badge-ditolak { background: #f8d7da; color: #721c24; }
+
+.pay-form {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+.pay-form select {
+    font-size: 11px;
+    padding: 4px 6px;
+    border-radius: 6px;
+    border: 1px solid #cbc2e6;
+}
+
+.pay-form button {
+    font-size: 11px;
+    padding: 4px 8px;
+    background: #5c4396;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* INSTAGRAM FEED SECTION */
+.ig-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.ig-profile-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ig-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    padding: 2px;
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+}
+
+.ig-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    background: white;
+}
+
+.ig-names strong {
+    display: block;
     font-size: 13px;
-    line-height: 1.6;
-    font-style: italic;
-    color: #7766a5;
-    font-weight: bold;
+    color: #3b2c68;
 }
 
-.empty {
+.ig-names span {
+    font-size: 11px;
+    color: #7b719c;
+}
+
+.btn-ig-follow {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px;
+    border-radius: 16px;
+    background: linear-gradient(45deg, #f09433, #dc2743, #bc1888);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: opacity .2s;
+}
+
+.btn-ig-follow:hover { opacity: 0.9; }
+
+.ig-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.ig-item {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.ig-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .3s;
+}
+
+.ig-item:hover img {
+    transform: scale(1.08);
+}
+
+.ig-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(43, 31, 75, 0.65);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity .2s;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px;
     text-align: center;
-    padding: 15px 5px;
-    font-size: 9px;
-    color: #9991ae;
-    line-height: 1.6;
 }
 
-@media(max-width: 760px) {
-    .sidebar {
-        position: relative;
-        width: 100%;
-        height: auto;
-    }
+.ig-item:hover .ig-overlay {
+    opacity: 1;
+}
 
-    .brand img { height: 55px; }
-    .menu { display: grid; grid-template-columns: repeat(2, 1fr); }
-    .logout { margin-top: 5px; }
+/* PROFILE FORM */
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile-form label { font-size: 12px; font-weight: 600; color: #553e8a; }
+.profile-form input { padding: 8px 12px; border-radius: 8px; border: 1px solid #d4cbe8; font-size: 12px; }
+.profile-form button { padding: 8px 12px; background: #6c54a3; color: white; border: none; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; align-self: flex-start; }
+
+.empty-state { text-align: center; padding: 24px 10px; color: #8c82ab; font-size: 13px; }
+
+@media(max-width: 860px) {
+    .sidebar { position: relative; width: 100%; height: auto; }
+    .menu { flex-direction: row; flex-wrap: wrap; }
     .main { margin-left: 0; }
     .dashboard-grid { grid-template-columns: 1fr; }
-}
-
-@media(max-width: 480px) {
     .stats { grid-template-columns: 1fr; }
-    .hero-decoration { display: none; }
-    .available-grid { grid-template-columns: 1fr 1fr; }
 }
 </style>
 </head>
@@ -477,83 +665,128 @@ body {
     </div>
 
     <nav class="menu">
-        <a href="{{ url('/dashboard/volunteer') }}" class="active">
+        <a href="#dashboard" class="active">
             <span class="menu-icon">⌂</span> Dashboard
         </a>
-        <a href="#">
-            <span class="menu-icon">▦</span> Kegiatan
+        <a href="#kegiatan-tersedia">
+            <span class="menu-icon">▦</span> Kegiatan Tersedia
         </a>
-        <a href="#">
-            <span class="menu-icon">▣</span> Pembayaran
+        <a href="#kegiatan-saya">
+            <span class="menu-icon">▣</span> Kegiatan Saya
         </a>
-        <a href="#">
-            <span class="menu-icon">◷</span> Riwayat
+        <a href="#instagram-feed">
+            <span class="menu-icon">📷</span> Instagram Feed
+        </a>
+        <a href="#profil-saya">
+            <span class="menu-icon">⚙</span> Profil Saya
         </a>
     </nav>
 
     <div class="logout">
-        <form method="POST" action="{{ url('/logout') }}">
+        <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button type="submit">↪ &nbsp; Log Out</button>
         </form>
     </div>
 </aside>
 
-<main class="main">
+<main class="main" id="dashboard">
 
     <header class="topbar">
-        <span>Dashboard</span>
+        <span>Volunteer Portal · Ranah Rengkuh</span>
 
         <div class="topbar-right">
-            <span class="notification">♧</span>
-            <div class="profile">
-                <span class="avatar">♙</span>
-                {{ $nama }}
+            <div class="profile-badge">
+                <span class="avatar">{{ strtoupper(substr($nama, 0, 1)) }}</span>
+                <span>{{ $nama }}</span>
             </div>
         </div>
     </header>
 
     <div class="content">
 
-        <section class="hero">
-            <h1>Halo, {{ $nama }}!</h1>
-            <p>
-                Senang sekali kamu sudah bergabung sebagai Volunteer
-                Ranah Rengkuh. Yuk, lanjutkan kontribusimu dan sebarkan
-                kebaikan!
-            </p>
+        @if(session('success'))
+            <div class="alert alert-success">
+                <span>✓ {{ session('success') }}</span>
+            </div>
+        @endif
 
-            <span class="bird one">⌁</span>
-            <span class="bird two">⌁</span>
-            <span class="bird three">⌁</span>
-            <div class="hero-decoration">🎒 🧑🏻‍🤝‍🧑🏼</div>
+        @if(session('error'))
+            <div class="alert alert-danger">
+                <span>⚠ {{ session('error') }}</span>
+            </div>
+        @endif
+
+        <!-- SLIDESHOW BANNER DOKUMENTASI KEGIATAN -->
+        <section class="slideshow-container">
+            <!-- Slide 1 -->
+            <div class="slide active">
+                <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1200&auto=format&fit=crop" class="slide-img" alt="Dokumentasi Sosial 1">
+                <div class="slide-overlay">
+                    <span class="slide-tag">✨ Ranah Rengkuh Bersama Relawan</span>
+                    <h1 class="slide-title">Mengukir Senyum, Menyatukan Harapan</h1>
+                    <p class="slide-desc">Setiap aksi kerelawananmu membuka pintu masa depan yang lebih cerah bagi adik-adik di berbagai pelosok desa.</p>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?q=80&w=1200&auto=format&fit=crop" class="slide-img" alt="Dokumentasi Sosial 2">
+                <div class="slide-overlay">
+                    <span class="slide-tag">🌱 Aksi Lingkungan Hijau</span>
+                    <h1 class="slide-title">Langkah Nyata untuk Bumi Kita</h1>
+                    <p class="slide-desc">Bergabunglah dalam gerakan penanaman pohon dan pelestarian pesisir pantai bersama ratusan pemuda lainnya.</p>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=1200&auto=format&fit=crop" class="slide-img" alt="Dokumentasi Sosial 3">
+                <div class="slide-overlay">
+                    <span class="slide-tag">🤝 Solidaritas Tanpa Batas</span>
+                    <h1 class="slide-title">Berbagi Kehangatan, Merengkuh Sesama</h1>
+                    <p class="slide-desc">Penyaluran bantuan nutrisi dan pemeriksaan kesehatan lansia secara langsung ke rumah-rumah warga.</p>
+                </div>
+            </div>
+
+            <!-- Navigasi Slide -->
+            <button class="slide-nav slide-prev" onclick="plusSlides(-1)">❮</button>
+            <button class="slide-nav slide-next" onclick="plusSlides(1)">❯</button>
+
+            <!-- Titik Indikator -->
+            <div class="slide-dots">
+                <span class="dot active" onclick="currentSlide(0)"></span>
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+            </div>
         </section>
 
+        <!-- STATS -->
         <section class="stats">
             <div class="stat purple">
                 <div class="stat-icon">▦</div>
                 <div>
                     <div class="stat-label">Kegiatan Diikuti</div>
-                    <div class="stat-value">0</div>
-                    <div class="stat-note">Kegiatan terdaftar</div>
+                    <div class="stat-value">{{ $totalDiikuti }}</div>
+                    <div class="stat-note">Total program terdaftar</div>
                 </div>
             </div>
 
             <div class="stat blue">
                 <div class="stat-icon">▣</div>
                 <div>
-                    <div class="stat-label">Status Pembayaran</div>
-                    <div class="stat-value">0 / 0</div>
-                    <div class="stat-note">Lunas · Belum bayar</div>
+                    <div class="stat-label">Selesai Berkontribusi</div>
+                    <div class="stat-value">{{ $totalSelesai }}</div>
+                    <div class="stat-note">Kegiatan telah selesai</div>
                 </div>
             </div>
 
             <div class="stat yellow">
-                <div class="stat-icon">♟</div>
+                <div class="stat-icon">⏳</div>
                 <div>
-                    <div class="stat-label">Status Pendaftaran</div>
-                    <div class="stat-value">Terdaftar</div>
-                    <div class="stat-note">Jumlah kegiatan terdaftar: 0</div>
+                    <div class="stat-label">Menunggu Pembayaran</div>
+                    <div class="stat-value">{{ $menungguPembayaran }}</div>
+                    <div class="stat-note">Perlu konfirmasi / verifikasi</div>
                 </div>
             </div>
         </section>
@@ -562,74 +795,297 @@ body {
 
             <div class="left-column">
 
-                <div class="panel">
+                <!-- KEGIATAN TERSEDIA -->
+                <div class="panel" id="kegiatan-tersedia">
                     <div class="panel-heading">
-                        <h2>Kegiatan Saya</h2>
-                        <a href="#">Lihat Semua →</a>
+                        <h2>🌱 Kegiatan Terbuka untuk Volunteer</h2>
                     </div>
 
-                    <div class="empty">
-                        Kamu belum mengikuti kegiatan apa pun.
-                    </div>
+                    @if($kegiatanTersedia->isEmpty())
+                        <div class="empty-state">
+                            Belum ada jadwal kegiatan terbuka saat ini. Nantikan kabar dari pengurus ya!
+                        </div>
+                    @else
+                        <div class="available-grid">
+                            @foreach($kegiatanTersedia as $k)
+                                @php
+                                    $isRegistered = in_array($k->ID_Kegiatan, $registeredKegiatanIds);
+                                    $isFull = $k->pendaftaran_count >= $k->Kuota;
+                                @endphp
+                                <div class="available-card">
+                                    <div class="available-thumb-box">
+                                        @if($k->Foto_Kegiatan)
+                                            <img src="{{ asset('storage/' . $k->Foto_Kegiatan) }}" class="available-thumb-img" alt="{{ $k->Nama_Kegiatan }}">
+                                        @else
+                                            <div class="available-thumb-placeholder">
+                                                {{ $loop->iteration % 2 == 0 ? '🎒' : '🌱' }}
+                                            </div>
+                                        @endif
+                                    </div>
+
+                                    <div class="available-card-body">
+                                        <div>
+                                            <span class="available-badge">
+                                                Kuota: {{ $k->pendaftaran_count }} / {{ $k->Kuota }}
+                                            </span>
+                                            <div class="available-title">{{ $k->Nama_Kegiatan }}</div>
+                                            <div class="available-meta">
+                                                📅 {{ \Carbon\Carbon::parse($k->Tanggal_Kegiatan)->translatedFormat('d F Y') }}
+                                            </div>
+                                            <div class="available-meta">
+                                                👤 PJ: {{ $k->mandala->Nama ?? 'Pengurus' }}
+                                            </div>
+                                            <div class="available-desc">
+                                                {{ Str::limit($k->Deskripsi, 90, '...') }}
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            @if($isRegistered)
+                                                <a href="{{ route('volunteer.kegiatan.detail', $k->ID_Kegiatan) }}" class="btn-daftar btn-disabled" style="text-align: center; text-decoration: none; display: block;">✓ Sudah Terdaftar (Lihat Detail)</a>
+                                            @elseif($isFull)
+                                                <button class="btn-daftar btn-disabled" disabled>Kuota Penuh</button>
+                                            @else
+                                                <a href="{{ route('volunteer.kegiatan.detail', $k->ID_Kegiatan) }}" class="btn-daftar" style="text-align: center; text-decoration: none; display: block;">
+                                                    Lihat Detail & Daftar →
+                                                </a>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
 
-                <div class="panel">
+                <!-- KEGIATAN SAYA -->
+                <div class="panel" id="kegiatan-saya">
                     <div class="panel-heading">
-                        <h2>Kegiatan Tersedia</h2>
-                        <a href="#">Lihat Semua →</a>
+                        <h2>📋 Kegiatan yang Saya Ikuti</h2>
                     </div>
 
-                    <div class="available-grid">
-                        <div class="available-card">
-                            <div class="available-image">🌱</div>
-                            <strong>Berbagi Kebaikan</strong>
-                            <small>▦ Jadwal kegiatan</small>
-                            <small>⌖ Lokasi kegiatan</small>
-                            <a href="#">Lihat Detail</a>
+                    @if($pendaftaranList->isEmpty())
+                        <div class="empty-state">
+                            Kamu belum mendaftar kegiatan apa pun. Pilih salah satu kegiatan terbuka di atas ya!
                         </div>
+                    @else
+                        @foreach($pendaftaranList as $p)
+                            @php
+                                $bayar = $p->pembayaran->first();
+                                $status = $bayar ? $bayar->Status : 'Belum Ada Tagihan';
+                            @endphp
+                            <div class="my-kegiatan-item">
+                                @if($p->kegiatan->Foto_Kegiatan)
+                                    <img src="{{ asset('storage/' . $p->kegiatan->Foto_Kegiatan) }}" style="width: 55px; height: 55px; border-radius: 8px; object-fit: cover;" alt="Foto Kegiatan">
+                                @else
+                                    <div style="width: 55px; height: 55px; border-radius: 8px; background: #e8dffc; display: grid; place-items: center; font-size: 22px;">
+                                        🤝
+                                    </div>
+                                @endif
 
-                        <div class="available-card">
-                            <div class="available-image">🤝</div>
-                            <strong>Kelas Berbagi</strong>
-                            <small>▦ Jadwal kegiatan</small>
-                            <small>⌖ Lokasi kegiatan</small>
-                            <a href="#">Lihat Detail</a>
-                        </div>
-                    </div>
+                                <div style="flex: 1;">
+                                    <strong style="color: #412f73; font-size: 14px;">{{ $p->kegiatan->Nama_Kegiatan }}</strong>
+                                    <div style="font-size: 12px; color: #6d6194; margin-top: 3px;">
+                                        Pelaksanaan: <strong>{{ \Carbon\Carbon::parse($p->kegiatan->Tanggal_Kegiatan)->translatedFormat('d F Y') }}</strong> ·
+                                        Daftar: {{ \Carbon\Carbon::parse($p->Tanggal_Pendaftaran)->translatedFormat('d F Y') }}
+                                    </div>
+
+                                    @if($bayar && in_array($status, ['Menunggu', 'Ditolak']))
+                                        <form method="POST" action="{{ route('volunteer.pembayaran.konfirmasi', $bayar->ID_Pembayaran) }}" class="pay-form">
+                                            @csrf
+                                            <label style="font-size: 11px; color: #554483;">Metode Bayar:</label>
+                                            <select name="metode" required>
+                                                <option value="QRIS">QRIS</option>
+                                                <option value="Transfer Bank BCA">Bank BCA</option>
+                                                <option value="Transfer Bank Mandiri">Bank Mandiri</option>
+                                                <option value="E-Wallet (Gopay/OVO)">E-Wallet</option>
+                                            </select>
+                                            <button type="submit">Konfirmasi Pembayaran (Rp {{ number_format($bayar->Nominal, 0, ',', '.') }})</button>
+                                        </form>
+                                    @endif
+                                </div>
+
+                                <div style="text-align: right;">
+                                    @if($status === 'Lunas')
+                                        <span class="badge-status badge-lunas">✓ Pembayaran Lunas</span>
+                                    @elseif($status === 'Menunggu Verifikasi')
+                                        <span class="badge-status badge-verifikasi">⏳ Verifikasi Pengurus</span>
+                                    @elseif($status === 'Ditolak')
+                                        <span class="badge-status badge-ditolak">✕ Ditolak</span>
+                                    @else
+                                        <span class="badge-status badge-menunggu">Menunggu Pembayaran</span>
+                                    @endif
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
 
             </div>
 
             <div class="right-column">
 
-                <div class="panel">
-                    <div class="panel-heading">
-                        <h2>◀ Pengumuman</h2>
+                <!-- INSTAGRAM FEED & PROFIL KOMUNITAS SHOWCASE -->
+                <div class="panel" id="instagram-feed">
+                    <div class="ig-header">
+                        <div class="ig-profile-info">
+                            <div class="ig-avatar">
+                                <img src="{{ asset('images/logo-ranah-rengkuh.png') }}" alt="Ranah Rengkuh IG">
+                            </div>
+                            <div class="ig-names">
+                                <strong>ranahrengkuh</strong>
+                                <span>Ranah Rengkuh Official</span>
+                            </div>
+                        </div>
+
+                        <a href="https://instagram.com/ranahrengkuh" target="_blank" rel="noopener noreferrer" class="btn-ig-follow">
+                            📸 Follow
+                        </a>
                     </div>
 
-                    <div class="announcement">
-                        <h3>Jangan lupa!</h3>
-                        <p>
-                            Pantau terus informasi kegiatan dan
-                            pengumuman terbaru dari Komunitas
-                            Ranah Rengkuh.
-                        </p>
-                        <small>Informasi dari pengurus</small>
+                    <!-- Shortcut Link Resmi Komunitas -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 12px;">
+                        <a href="https://ranahrengkuhh.my.canva.site/?utm_source=ig&utm_medium=social&utm_content=link_in_bio" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 11px; color: #5a428e; background: #eedeff; border: 1px solid #d9c7f6; padding: 7px 10px; border-radius: 8px; text-decoration: none; font-weight: 700; text-align: center;">
+                            🌐 Website Canva
+                        </a>
+                        <a href="https://drive.google.com/file/d/16_KrGwKr0mpf9JGajRlDa6jLoZVFEJW_/view" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 11px; color: #3b5080; background: #dbeefd; border: 1px solid #c0e0fc; padding: 7px 10px; border-radius: 8px; text-decoration: none; font-weight: 700; text-align: center;">
+                            📄 Profil Komunitas
+                        </a>
                     </div>
+
+                    <div style="font-size: 11px; color: #766996; margin-bottom: 10px;">
+                        Keseruan & kabar aksi relawan terbaru di Instagram:
+                    </div>
+
+                    <div class="ig-grid">
+                        @php
+                            $localIgFiles = [
+                                'ig-1.jpg', 'ig-2.jpg', 'ig-3.jpg',
+                                'ig-4.jpg', 'ig-5.jpg', 'ig-6.jpg'
+                            ];
+                            $fallbackUrls = [
+                                'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=400&auto=format&fit=crop',
+                                'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=400&auto=format&fit=crop',
+                                'https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=400&auto=format&fit=crop',
+                                'https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=400&auto=format&fit=crop',
+                                'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=400&auto=format&fit=crop',
+                                'https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=400&auto=format&fit=crop',
+                            ];
+                            $captions = [
+                                'Aksi Relawan',
+                                'Website Canva',
+                                'Company Profile',
+                                'Ruang Berbagi',
+                                'Kelas Edukasi',
+                                'Dokumentasi'
+                            ];
+                            $links = [
+                                'https://instagram.com/ranahrengkuh',
+                                'https://ranahrengkuhh.my.canva.site/?utm_source=ig&utm_medium=social&utm_content=link_in_bio',
+                                'https://drive.google.com/file/d/16_KrGwKr0mpf9JGajRlDa6jLoZVFEJW_/view',
+                                'https://instagram.com/ranahrengkuh',
+                                'https://instagram.com/ranahrengkuh',
+                                'https://instagram.com/ranahrengkuh'
+                            ];
+                        @endphp
+
+                        @for($i = 0; $i < 6; $i++)
+                            @php
+                                $imgSrc = file_exists(public_path('images/instagram/' . $localIgFiles[$i]))
+                                    ? asset('images/instagram/' . $localIgFiles[$i])
+                                    : $fallbackUrls[$i];
+                            @endphp
+                            <a href="{{ $links[$i] }}" target="_blank" rel="noopener noreferrer" class="ig-item" title="{{ $captions[$i] }}">
+                                <img src="{{ $imgSrc }}" alt="IG Post {{ $i + 1 }}">
+                                <div class="ig-overlay">
+                                    <span>{{ $captions[$i] }} ↗</span>
+                                </div>
+                            </a>
+                        @endfor
+                    </div>
+
+                    <a href="https://instagram.com/ranahrengkuh" target="_blank" rel="noopener noreferrer" style="display: block; text-align: center; font-size: 11px; color: #6a549d; text-decoration: none; font-weight: 700; padding: 7px; background: #f3effc; border-radius: 8px;">
+                        Kunjungi @ranahrengkuh di Instagram ↗
+                    </a>
+                </div>
+                        Buka Profil @ranahrengkuh di Instagram ↗
+                    </a>
                 </div>
 
-                <div class="motivation">
-                    <p>
-                        Langkah kecil kamu,
-                        berarti besar untuk mereka ♡
-                    </p>
+                <!-- PROFIL FORM -->
+                <div class="panel" id="profil-saya">
+                    <div class="panel-heading">
+                        <h2>⚙ Profil Volunteer</h2>
+                    </div>
+
+                    <form method="POST" action="{{ route('volunteer.profil.update') }}" class="profile-form">
+                        @csrf
+                        <div>
+                            <label>Nama Lengkap</label>
+                            <input type="text" name="nama" value="{{ old('nama', $volunteer->Nama) }}" required style="width: 100%;">
+                        </div>
+
+                        <div>
+                            <label>Email (Akun Login)</label>
+                            <input type="text" value="{{ $volunteer->Email }}" disabled style="width: 100%; background: #f3f0fa;">
+                        </div>
+
+                        <div>
+                            <label>Nomor WhatsApp / HP</label>
+                            <input type="text" name="no_telpon" value="{{ old('no_telpon', $volunteer->No_Telpon) }}" required style="width: 100%;">
+                        </div>
+
+                        <button type="submit">Simpan Perubahan</button>
+                    </form>
                 </div>
 
             </div>
 
         </section>
+
     </div>
 </main>
+
+<script>
+let currentSlideIndex = 0;
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+let slideInterval;
+
+function showSlide(index) {
+    if (index >= slides.length) { currentSlideIndex = 0; }
+    else if (index < 0) { currentSlideIndex = slides.length - 1; }
+    else { currentSlideIndex = index; }
+
+    slides.forEach(s => s.classList.remove('active'));
+    dots.forEach(d => d.classList.remove('active'));
+
+    slides[currentSlideIndex].classList.add('active');
+    dots[currentSlideIndex].classList.add('active');
+}
+
+function plusSlides(n) {
+    clearInterval(slideInterval);
+    showSlide(currentSlideIndex + n);
+    startAutoSlide();
+}
+
+function currentSlide(n) {
+    clearInterval(slideInterval);
+    showSlide(n);
+    startAutoSlide();
+}
+
+function startAutoSlide() {
+    slideInterval = setInterval(() => {
+        showSlide(currentSlideIndex + 1);
+    }, 4500);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    startAutoSlide();
+});
+</script>
 
 </body>
 </html>

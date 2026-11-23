@@ -1,150 +1,81 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PengurusController;
+use App\Http\Controllers\VolunteerController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
-Route::get('/', function () {
-    return view('home');
+/*
+|--------------------------------------------------------------------------
+| Web Routes - Ranah Rengkuh (Rengkuhan)
+|--------------------------------------------------------------------------
+*/
+
+// Halaman Beranda & Pilihan Role
+Route::get('/', [AuthController::class, 'showRoleSelection'])->name('home');
+Route::post('/pilih-role', [AuthController::class, 'selectRole'])->name('pilih-role');
+
+// Autentikasi (Login & Register)
+Route::get('/login/{role}', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login/{role}', [AuthController::class, 'login']);
+Route::get('/register/volunteer', [AuthController::class, 'showRegisterVolunteer'])->name('register.volunteer');
+Route::post('/register/volunteer', [AuthController::class, 'registerVolunteer']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Area Volunteer (Dilindungi Middleware)
+Route::middleware(['role:volunteer'])->prefix('dashboard/volunteer')->name('volunteer.')->group(function () {
+    Route::get('/', [VolunteerController::class, 'dashboard'])->name('dashboard');
+    Route::get('/kegiatan', [VolunteerController::class, 'dashboard'])->name('kegiatan');
+    Route::get('/kegiatan/{idKegiatan}', [VolunteerController::class, 'detailKegiatan'])->name('kegiatan.detail');
+    Route::get('/kegiatan/{idKegiatan}/daftar', [VolunteerController::class, 'formDaftarKegiatan'])->name('kegiatan.daftar.form');
+    Route::post('/kegiatan/{idKegiatan}/daftar', [VolunteerController::class, 'submitDaftarKegiatan'])->name('kegiatan.daftar.submit');
+
+    // Pembayaran & Riwayat
+    Route::get('/pembayaran', [VolunteerController::class, 'halamanPembayaran'])->name('pembayaran');
+    Route::get('/pembayaran/{idPembayaran}/instruksi', [VolunteerController::class, 'instruksiPembayaran'])->name('pembayaran.instruksi');
+    Route::post('/pembayaran/{idPembayaran}/konfirmasi', [VolunteerController::class, 'konfirmasiPembayaran'])->name('pembayaran.konfirmasi');
+    Route::get('/riwayat', [VolunteerController::class, 'halamanRiwayat'])->name('riwayat');
+
+    // Profil
+    Route::post('/profil/update', [VolunteerController::class, 'updateProfil'])->name('profil.update');
 });
 
-Route::post('/pilih-role', function (Request $request) {
-    $request->validate([
-        'role' => 'required|in:mandala,volunteer',
-    ]);
+// Area Pengurus (Mandala)
+Route::middleware(['role:pengurus'])->prefix('dashboard/pengurus')->name('pengurus.')->group(function () {
+    Route::get('/', [PengurusController::class, 'dashboard'])->name('dashboard');
 
-    return redirect('/login/' . $request->role);
+    // Kelola Kegiatan
+    Route::get('/kegiatan', [PengurusController::class, 'kelolaKegiatan'])->name('kegiatan.index');
+    Route::get('/kegiatan/tambah', [PengurusController::class, 'formTambahKegiatan'])->name('kegiatan.tambah');
+    Route::post('/kegiatan', [PengurusController::class, 'storeKegiatan'])->name('kegiatan.store');
+    Route::delete('/kegiatan/{id}', [PengurusController::class, 'destroyKegiatan'])->name('kegiatan.destroy');
+
+    // Kelola Volunteer & Laporan Pendaftar
+    Route::get('/volunteer', [PengurusController::class, 'kelolaVolunteer'])->name('volunteer.index');
+    Route::get('/laporan-pendaftar', [PengurusController::class, 'laporanPendaftar'])->name('laporan.pendaftar');
+    Route::get('/pendaftar/{idPendaftaran}', [PengurusController::class, 'detailPendaftar'])->name('detail.pendaftar');
+
+    // Rekap Pembayaran & Verifikasi
+    Route::get('/rekap-pembayaran', [PengurusController::class, 'rekapPembayaran'])->name('rekap.pembayaran');
+    Route::post('/pembayaran/{idPembayaran}/verifikasi', [PengurusController::class, 'verifikasiPembayaran'])->name('pembayaran.verifikasi');
+
+    // Generate RAB dengan AI
+    Route::get('/generate-rab-ai', [PengurusController::class, 'generateRabAi'])->name('generate.rab.ai');
+    Route::post('/generate-rab-ai', [PengurusController::class, 'generateRabAi'])->name('generate.rab.ai.post');
+    Route::post('/kegiatan/{idKegiatan}/simpan-rab-ai', [PengurusController::class, 'simpanRekomendasiRab'])->name('simpan.rekomendasi.rab');
 });
 
-Route::get('/login/{role}', function (string $role) {
-    abort_unless(in_array($role, ['mandala', 'volunteer']), 404);
-
-    $roleLabel = $role === 'mandala' ? 'Pengurus' : 'Volunteer';
-
-    return view('login', compact('roleLabel', 'role'));
+// Alias route lama bila ada yang mengakses /dashboard/mandala
+Route::get('/dashboard/mandala', function () {
+    return redirect()->route('pengurus.dashboard');
 });
 
-Route::post('/login/{role}', function (Request $request, string $role) {
-    abort_unless(in_array($role, ['mandala', 'volunteer']), 404);
-
-    $request->validate([
-        'email' => 'required|email',
-        'password' => 'required',
-    ]);
-
-    $table = $role === 'mandala' ? 'mandala' : 'volunteer';
-
-    $account = DB::table($table)
-        ->where('Email', $request->email)
-        ->first();
-
-    if (!$account || !Hash::check($request->password, $account->Password)) {
-        return back()->withErrors([
-            'login' => 'Email atau password yang kamu masukkan salah.',
-        ])->onlyInput('email');
-    }
-
-    $idColumn = $role === 'mandala' ? 'ID_Mandala' : 'ID_Volunteer';
-
-    $request->session()->regenerate();
-
-    $jabatan = $role === 'mandala'
-        ? $account->Jabatan
-        : 'Volunteer';
-
-    session([
-        'auth_role' => $role,
-        'auth_id' => $account->$idColumn,
-        'auth_name' => $account->Nama,
-        'auth_jabatan' => $jabatan,
-    ]);
-
-    if ($role === 'mandala' && $jabatan === 'Administrator') {
-        return redirect('/dashboard/admin');
-    }
-
-    return redirect('/dashboard/' . $role);
-});
-
-Route::get('/dashboard/{role}', function (string $role) {
-    abort_unless(in_array($role, ['admin', 'mandala', 'volunteer']), 404);
-
-    if (!session('auth_id')) {
-        return redirect('/');
-    }
-
-    $authRole = session('auth_role');
-    $jabatan = session('auth_jabatan');
-
-    if ($role === 'admin') {
-        abort_unless(
-            $authRole === 'mandala' && $jabatan === 'Administrator',
-            403
-        );
-
-        return view('dashboard-admin', [
-            'nama' => session('auth_name'),
-        ]);
-    }
-
-    if ($role === 'mandala') {
-        abort_unless(
-            $authRole === 'mandala' && $jabatan === 'Pengurus',
-            403
-        );
-
-        return view('dashboard-pengurus', [
-            'nama' => session('auth_name'),
-        ]);
-    }
-
-    abort_unless($authRole === 'volunteer', 403);
-
-    return view('dashboard', [
-        'roleLabel' => 'Volunteer',
-        'nama' => session('auth_name'),
-    ]);
-});
-
-Route::post('/logout', function (Request $request) {
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
-
-    return redirect('/');
-});
-
-// REGISTRASI VOLUNTEER
-Route::get('/register/volunteer', function () {
-    return view('register', [
-        'role' => 'volunteer',
-        'roleLabel' => 'Volunteer',
-    ]);
-});
-
-Route::post('/register/volunteer', function (Request $request) {
-    $validated = $request->validate([
-        'nama' => 'required|string|max:255',
-        'email' => 'required|email|max:255|unique:volunteer,Email',
-        'no_telpon' => 'required|string|max:20',
-        'password' => 'required|string|min:8|confirmed',
-    ], [
-        'nama.required' => 'Nama wajib diisi.',
-        'email.required' => 'Email wajib diisi.',
-        'email.email' => 'Format email tidak valid.',
-        'email.unique' => 'Email sudah terdaftar.',
-        'no_telpon.required' => 'Nomor telepon wajib diisi.',
-        'password.min' => 'Password minimal 8 karakter.',
-        'password.confirmed' => 'Konfirmasi password tidak cocok.',
-    ]);
-
-    DB::table('volunteer')->insert([
-        'Nama' => $validated['nama'],
-        'Email' => $validated['email'],
-        'No_Telpon' => $validated['no_telpon'],
-        'Password' => Hash::make($validated['password']),
-    ]);
-
-    return redirect('/login/volunteer')
-        ->with('success', 'Registrasi berhasil! Silakan login menggunakan akun kamu.');
+// Area Admin
+Route::middleware(['role:admin'])->prefix('dashboard/admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::post('/mandala', [AdminController::class, 'storeMandala'])->name('mandala.store');
+    Route::delete('/mandala/{id}', [AdminController::class, 'destroyMandala'])->name('mandala.destroy');
+    Route::delete('/volunteer/{id}', [AdminController::class, 'destroyVolunteer'])->name('volunteer.destroy');
+    Route::post('/coa', [AdminController::class, 'storeCoa'])->name('coa.store');
 });
